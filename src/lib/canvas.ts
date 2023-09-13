@@ -1,15 +1,32 @@
 export type Canvas<T> = {
+  canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   state: T;
-  setup: () => T;
-  paint: ({ ctx, state }: { ctx: CanvasRenderingContext2D; state: T }) => void;
+  setup: (canvas: HTMLCanvasElement) => T;
+  paint: ({
+    ctx,
+    state,
+    canvas,
+  }: {
+    ctx: CanvasRenderingContext2D;
+    state: T;
+    canvas: HTMLCanvasElement;
+  }) => void;
   clean: () => void;
   resize: (canvas: HTMLCanvasElement) => void;
 };
 
 export type CanvasOptions<T> = {
-  setup: () => T;
-  paint?: ({ ctx, state }: { ctx: CanvasRenderingContext2D; state: T }) => void;
+  setup: (canvas: HTMLCanvasElement) => T;
+  paint?: ({
+    ctx,
+    state,
+    canvas,
+  }: {
+    ctx: CanvasRenderingContext2D;
+    state: T;
+    canvas: HTMLCanvasElement;
+  }) => void;
   clean?: () => void;
   resize?: (canvas: HTMLCanvasElement) => void;
 };
@@ -20,8 +37,14 @@ export function createScene<T>(canvasArray: Canvas<T>[]) {
     throw new Error("Cannot call 'createScene' on the server");
   }
 
+  window.addEventListener("resize", () => {
+    for (let i = 0; i < canvasArray.length; i++) {
+      canvasArray[i].resize(canvasArray[i].canvas);
+    }
+  });
+
   for (let i = 0; i < canvasArray.length; i++) {
-    canvasArray[i].setup();
+    canvasArray[i].state = canvasArray[i].setup(canvasArray[i].canvas);
   }
 
   const loop = () => {
@@ -29,6 +52,7 @@ export function createScene<T>(canvasArray: Canvas<T>[]) {
       canvasArray[i].paint({
         ctx: canvasArray[i].ctx,
         state: canvasArray[i].state,
+        canvas: canvasArray[i].canvas,
       });
     }
     requestId = window.requestAnimationFrame(loop);
@@ -53,6 +77,7 @@ export function createCanvas<T>(
   }
 
   canvas.ctx = ctx;
+  canvas.canvas = canvasElement;
   canvas.setup = canvasOptions.setup;
   canvas.paint = canvasOptions?.paint ?? ((_) => { });
   canvas.clean = canvasOptions?.clean ?? (() => { });

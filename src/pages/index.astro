@@ -11,21 +11,27 @@ import Page from "../layouts/page.astro";
 import { createScene, createCanvas } from "../lib/canvas";
 
 let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
-const state = {
-
-};
-const scene = createScene<typeof state>([
-  createCanvas<typeof state>(canvasEl, {
-    setup: () => {
-
+type State = {
+  x: number
+}
+createScene<State>([
+  createCanvas<State>(canvasEl, {
+    setup: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 400;
+      return {
+        x: 0
+      }
     },
     resize: (canvas) => {
       canvas.width = window.innerWidth;
       canvas.height = 400;
     },
-    paint: ({ctx, state}) => {
+    paint: ({ctx, state, canvas}) => {
+      state.x += 1;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "blue";
-      ctx.rect(100, 100, 100, 100);
+      ctx.fillRect(state.x, 0, 100, 100);
     },
   })
 ]);
