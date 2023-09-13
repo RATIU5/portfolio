@@ -1,16 +1,33 @@
 ---
-
+import Page from "../layouts/page.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+
+<Page>
+  <canvas id="upperDrip" class="h-[400px] w-full"></canvas>
+</Page>
+
+<script>
+import { createScene, createCanvas } from "../lib/canvas";
+
+let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
+const state = {
+
+};
+const scene = createScene<typeof state>([
+  createCanvas<typeof state>(canvasEl, {
+    setup: () => {
+
+    },
+    resize: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 400;
+    },
+    paint: ({ctx, state}) => {
+      ctx.fillStyle = "blue";
+      ctx.rect(100, 100, 100, 100);
+    },
+  })
+]);
+</script>
+
