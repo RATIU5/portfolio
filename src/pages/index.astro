@@ -1,37 +1,87 @@
 ---
 import Page from "../layouts/page.astro";
 ---
-
-
 <Page>
   <canvas id="upperDrip" class="h-[400px] w-full"></canvas>
 </Page>
 
 <script>
 import { createScene, createCanvas } from "../lib/canvas";
+import { renderDrip, createDrips, type DripOptions, createDrip} from "../lib/drips";
 
 let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
 type State = {
-  x: number
+  x: number,
+  drips: DripOptions[],
+  resizeTimeout: number,
 }
 createScene<State>([
   createCanvas<State>(canvasEl, {
     setup: (canvas) => {
       canvas.width = window.innerWidth;
       canvas.height = 400;
+
+      const drips = createDrips({
+        dripWidth: 100,
+        containerWidth: canvas.width
+      });
+
       return {
-        x: 0
+        x: 0,
+        drips: drips,
+        resizeTimeout: 0,
       }
     },
-    resize: (canvas) => {
+    resize: ({canvas, state}) => {
+      clearTimeout(state.resizeTimeout); 
+
       canvas.width = window.innerWidth;
       canvas.height = 400;
+
+
+      setTimeout(() => {
+        if (canvas.width < state.drips.length * 100) {
+          const offset = (state.drips.length * 100) - canvas.width;
+          const dripRmCount = Math.floor(offset / 100);
+          if (dripRmCount > 0) {
+            state.drips.splice(state.drips.length - dripRmCount, dripRmCount); 
+          }
+        } else if (canvas.width > state.drips.length * 100) {
+          const offset = canvas.width - (state.drips.length * 100);
+          const dripAddCount = Math.floor(offset / 100) + 1;
+          const existingDripCount = Math.floor((canvas.width - offset) / 100);
+          for (let i = 0; i < dripAddCount; i++) {
+            let height = 0;
+            if ((i + existingDripCount) % 2 === 0) {
+              height = Math.floor(Math.random() * (350 - 275 + 1)) + 275;
+            } else {
+              height = Math.floor(Math.random() * (275 - 150 + 1)) + 150;
+            }
+
+            state.drips.push(createDrip({
+              width: 100,
+              height: height,
+              x: canvas.width - offset,
+              y: 0,
+              invert: (i + existingDripCount) % 2 !== 0,
+            })); 
+          }
+        }
+      }, 200);
     },
     paint: ({ctx, state, canvas}) => {
       state.x += 1;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "blue";
-      ctx.fillRect(state.x, 0, 100, 100);
+      for (let i = 0; i < state.drips.length; i++) {
+        renderDrip(ctx, {
+          x: state.drips[i].x,
+          y: state.drips[i].y,
+          height: state.drips[i].height,
+          width: state.drips[i].width,
+          invert: state.drips[i].invert
+        });
+
+      }
     },
   })
 ]);

@@ -13,7 +13,7 @@ export type Canvas<T> = {
     canvas: HTMLCanvasElement;
   }) => void;
   clean: () => void;
-  resize: (canvas: HTMLCanvasElement) => void;
+  resize: ({ canvas, state }: { canvas: HTMLCanvasElement; state: T }) => void;
 };
 
 export type CanvasOptions<T> = {
@@ -28,7 +28,7 @@ export type CanvasOptions<T> = {
     canvas: HTMLCanvasElement;
   }) => void;
   clean?: () => void;
-  resize?: (canvas: HTMLCanvasElement) => void;
+  resize?: ({ canvas, state }: { canvas: HTMLCanvasElement; state: T }) => void;
 };
 
 export function createScene<T>(canvasArray: Canvas<T>[]) {
@@ -39,7 +39,10 @@ export function createScene<T>(canvasArray: Canvas<T>[]) {
 
   window.addEventListener("resize", () => {
     for (let i = 0; i < canvasArray.length; i++) {
-      canvasArray[i].resize(canvasArray[i].canvas);
+      canvasArray[i].resize({
+        canvas: canvasArray[i].canvas,
+        state: canvasArray[i].state,
+      });
     }
   });
 
