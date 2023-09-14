@@ -7,13 +7,12 @@ import Page from "../layouts/page.astro";
 
 <script>
 import { createScene, createCanvas } from "../lib/canvas";
-import { renderDrip, createDrips, type DripOptions, createDrip} from "../lib/drips";
+import { renderDrip, createDrips, type DripOptions} from "../lib/drips";
 
 let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
 type State = {
-  x: number,
   drips: DripOptions[],
-  resizeTimeout: number,
+  resizeTimeout?: number,
 }
 createScene<State>([
   createCanvas<State>(canvasEl, {
@@ -27,63 +26,128 @@ createScene<State>([
       });
 
       return {
-        x: 0,
         drips: drips,
-        resizeTimeout: 0,
+        resizeTimeout: undefined,
       }
     },
     resize: ({canvas, state}) => {
-      clearTimeout(state.resizeTimeout); 
-
       canvas.width = window.innerWidth;
       canvas.height = 400;
 
+      if (state.resizeTimeout) {
+        clearTimeout(state.resizeTimeout); 
+      }
 
-      setTimeout(() => {
-        if (canvas.width < state.drips.length * 100) {
-          const offset = (state.drips.length * 100) - canvas.width;
-          const dripRmCount = Math.floor(offset / 100);
-          if (dripRmCount > 0) {
-            state.drips.splice(state.drips.length - dripRmCount, dripRmCount); 
-          }
-        } else if (canvas.width > state.drips.length * 100) {
-          const offset = canvas.width - (state.drips.length * 100);
-          const dripAddCount = Math.floor(offset / 100) + 1;
-          const existingDripCount = Math.floor((canvas.width - offset) / 100);
-          for (let i = 0; i < dripAddCount; i++) {
-            let height = 0;
-            if ((i + existingDripCount) % 2 === 0) {
-              height = Math.floor(Math.random() * (350 - 275 + 1)) + 275;
-            } else {
-              height = Math.floor(Math.random() * (275 - 150 + 1)) + 150;
-            }
-
-            state.drips.push(createDrip({
-              width: 100,
-              height: height,
-              x: canvas.width - offset,
-              y: 0,
-              invert: (i + existingDripCount) % 2 !== 0,
-            })); 
-          }
-        }
-      }, 200);
-    },
-    paint: ({ctx, state, canvas}) => {
-      state.x += 1;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < state.drips.length; i++) {
-        renderDrip(ctx, {
-          x: state.drips[i].x,
-          y: state.drips[i].y,
-          height: state.drips[i].height,
-          width: state.drips[i].width,
-          invert: state.drips[i].invert
+      state.resizeTimeout = setTimeout(() => {
+        const drips = createDrips({
+          dripWidth: 100,
+          containerWidth: canvas.width
         });
 
+        state.drips = drips;
+        state.resizeTimeout = 0;
+
+      }, 250);
+    },
+    paint: ({ctx, state, canvas}) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const frequency = Math.random() * (0.008 + 0.001) + 0.001;
+    
+    const evenRange = {min: 200, max: 250};  // Example range for even drips
+    const oddRange = {min: 150, max: 200};   // Example range for odd drips
+
+    for (let i = 0; i < state.drips.length; i++) {
+        state.drips[i].angle += frequency;
+        if (state.drips[i].angle > 2 * Math.PI) {
+            state.drips[i].angle -= 2 * Math.PI;
+        }
+
+        if (i % 2 === 0) {  // Even drip
+            let evenAmplitude = (evenRange.max - evenRange.min) / 2;
+            state.drips[i].height = evenAmplitude * Math.sin(state.drips[i].angle) + evenAmplitude + evenRange.min;
+        } else {  // Odd drip
+            let oddAmplitude = (oddRange.max - oddRange.min) / 2;
+            state.drips[i].height = oddAmplitude * Math.sin(state.drips[i].angle) + oddAmplitude + oddRange.min;
+        }
+
+        renderDrip(ctx, {
+            x: state.drips[i].x,
+            y: state.drips[i].y,
+            height: state.drips[i].height,
+            width: state.drips[i].width,
+            invert: state.drips[i].invert
+        });
+    }
+}
+  }),
+createCanvas<State>(canvasEl, {
+    setup: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 400;
+
+      const drips = createDrips({
+        dripWidth: 100,
+        containerWidth: canvas.width
+      });
+
+      return {
+        drips: drips,
+        resizeTimeout: undefined,
       }
     },
+    resize: ({canvas, state}) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 400;
+
+      if (state.resizeTimeout) {
+        clearTimeout(state.resizeTimeout); 
+      }
+
+      state.resizeTimeout = setTimeout(() => {
+        const drips = createDrips({
+          dripWidth: 100,
+          containerWidth: canvas.width
+        });
+
+        state.drips = drips;
+        state.resizeTimeout = 0;
+
+      }, 250);
+    },
+    paint: ({ctx, state, canvas}) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const frequency = Math.random() * (0.008 + 0.001) + 0.001;
+    
+    const evenRange = {min: 200, max: 250};  // Example range for even drips
+    const oddRange = {min: 150, max: 200};   // Example range for odd drips
+
+    for (let i = 0; i < state.drips.length; i++) {
+        state.drips[i].angle += frequency;
+        if (state.drips[i].angle > 2 * Math.PI) {
+            state.drips[i].angle -= 2 * Math.PI;
+        }
+
+        if (i % 2 === 0) {  // Even drip
+            let evenAmplitude = (evenRange.max - evenRange.min) / 2;
+            state.drips[i].height = evenAmplitude * Math.sin(state.drips[i].angle) + evenAmplitude + evenRange.min;
+        } else {  // Odd drip
+            let oddAmplitude = (oddRange.max - oddRange.min) / 2;
+            state.drips[i].height = oddAmplitude * Math.sin(state.drips[i].angle) + oddAmplitude + oddRange.min;
+        }
+
+        renderDrip(ctx, {
+            x: state.drips[i].x,
+            y: state.drips[i].y,
+            height: state.drips[i].height,
+            width: state.drips[i].width,
+            invert: state.drips[i].invert
+        });
+    }
+}
   })
+
 ]);
 </script>
 

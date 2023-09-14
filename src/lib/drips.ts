@@ -31,6 +31,7 @@ export type DripOptions = {
   x: number;
   y: number;
   invert: boolean;
+  angle: number;
 };
 
 export function createDrip(options: DripOptions) {
@@ -40,6 +41,7 @@ export function createDrip(options: DripOptions) {
     x: options.x ?? 0,
     y: options.y ?? 0,
     invert: options.invert ?? false,
+    angle: options.angle ?? 0,
   };
 }
 
@@ -55,7 +57,7 @@ export function createDrips(options: DripsOptions) {
     if (i % 200 === 0) {
       height = Math.floor(Math.random() * (350 - 275 + 1)) + 275;
     } else {
-      height = Math.floor(Math.random() * (275 - 150 + 1)) + 150;
+      height = Math.floor(Math.random() * (200 - 100 + 1)) + 100;
     }
     array.push(
       createDrip({
@@ -64,6 +66,7 @@ export function createDrips(options: DripsOptions) {
         x: i,
         y: 0,
         invert: i % 200 !== 0,
+        angle: Math.random() * 2 * Math.PI,
       }),
     );
   }
