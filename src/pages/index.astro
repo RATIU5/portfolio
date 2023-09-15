@@ -2,24 +2,52 @@
 import Page from "../layouts/page.astro";
 ---
 <Page>
-  <canvas id="upperDrip" class="h-[400px] w-full"></canvas>
+  <canvas id="upperDrip" class="h-[250px] w-full"></canvas>
+  <div class="mx-auto flex items-center justify-center max-w-5xl">
+    <div class="max-w-[20rem] sm:max-w-[28rem] md:max-w-[25rem] lg:max-w-[35rem] flex flex-col ml-6 min-w-[20rem]">
+      <h4 class="text-[#9BA7C2] text-xl md:text-2xl text-center md:text-left my-2">Your brand + my digital magic?</h4>
+      <div class="relative">
+        <h1 class="text-[#EFF7FF] text-5xl md:text-6xl text-center md:text-left font-bold leading-[110%]">Now that's a story worth talking about!</h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="25" viewBox="0 0 207 25" fill="none" class="absolute left-0 sm:left-32 md:-left-5 lg:left-40 md:w-[200px] md:h-[35px] md:">
+          <path d="M22 5C138.42 -2.02743 206.5 6.5 206.5 6.5C206.5 6.5 115.852 1.91566 2 23.5" stroke="#FF5B27" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <a href="#" class="group relative cursor-pointer bg-orange-600 hover:bg-orange-500 active:bg-orange-500 text-[#EFF7FF] text-sm pl-3 pr-6 py-2 inline-block mt-12 mx-auto md:ml-0 md:inline rounded-lg">
+        LET'S TALK
+        <span class="absolute top-[0.9rem] -right-3 group-hover:-right-4 group-active:-right-4 transition-all ease-in-out duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="8" viewBox="0 0 30 8" fill="none">
+            <path d="M29.3536 4.35355C29.5488 4.15829 29.5488 3.84171 29.3536 3.64645L26.1716 0.464466C25.9763 0.269204 25.6597 0.269204 25.4645 0.464466C25.2692 0.659728 25.2692 0.976311 25.4645 1.17157L28.2929 4L25.4645 6.82843C25.2692 7.02369 25.2692 7.34027 25.4645 7.53553C25.6597 7.7308 25.9763 7.7308 26.1716 7.53553L29.3536 4.35355ZM0 4.5H29V3.5H0L0 4.5Z" fill="white"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+    <div class="mr-6 hidden md:block">
+      <svg class="w-full h-full min-w-[15rem]" viewBox="0 0 354 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M88.3398 188C92.1888 181.333 101.811 181.333 105.66 188L163.684 288.5C167.533 295.167 162.722 303.5 155.024 303.5H38.9763C31.2783 303.5 26.467 295.167 30.316 288.5L88.3398 188Z" fill="#E16741"/>
+        <rect x="113" y="75" width="160" height="160" rx="10" fill="#D75151"/>
+        <circle cx="268" cy="285" r="86" fill="#9160CF"/>
+        <line x1="43" y1="4.37114e-08" x2="43" y2="336" stroke="#D8DEF1" stroke-width="2" stroke-dasharray="20 20"/>
+        <line x1="8.74228e-08" y1="44" x2="240" y2="44" stroke="#D8DEF1" stroke-width="2" stroke-dasharray="20 20"/>
+      </svg>
+    </div>
+  </div>
 </Page>
 
 <script>
 import { createScene, createCanvas } from "../lib/canvas";
 import { renderDrip, createDrips, type DripOptions} from "../lib/drips";
 
-
 let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
 type State = {
   drips: DripOptions[],
   resizeTimeout?: number,
 }
+
 createScene<State>([
   createCanvas<State>(canvasEl, {
     setup: (canvas) => {
       canvas.width = window.innerWidth;
-      canvas.height = 400;
+      canvas.height = 250;
 
       const drips = createDrips({
         dripWidth: 100,
@@ -33,7 +61,7 @@ createScene<State>([
     },
     resize: ({canvas, state}) => {
       canvas.width = window.innerWidth;
-      canvas.height = 400;
+      canvas.height = 250;
 
       if (state.resizeTimeout) {
         clearTimeout(state.resizeTimeout); 
@@ -52,8 +80,8 @@ createScene<State>([
     paint: ({ctx, state, canvas}) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const frequency = Math.random() * (0.008 + 0.001) + 0.001;
-      const evenRange = {min: 200, max: 250};
-      const oddRange = {min: 150, max: 200};
+      const evenRange = {min: 150, max: 200};
+      const oddRange = {min: 100, max: 150};
 
       for (let i = 0; i < state.drips.length; i++) {
         state.drips[i].angle += frequency;
