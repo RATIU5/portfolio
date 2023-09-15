@@ -31,7 +31,14 @@ export type CanvasOptions<T> = {
   resize?: ({ canvas, state }: { canvas: HTMLCanvasElement; state: T }) => void;
 };
 
-export function createScene<T>(canvasArray: Canvas<T>[]) {
+export type SceneOptions = {
+  loopCallback?: () => void;
+};
+
+export function createScene<T>(
+  canvasArray: Canvas<T>[],
+  options?: SceneOptions,
+) {
   let requestId: number | null = null;
   if (!window) {
     throw new Error("Cannot call 'createScene' on the server");
@@ -58,6 +65,7 @@ export function createScene<T>(canvasArray: Canvas<T>[]) {
         canvas: canvasArray[i].canvas,
       });
     }
+    options?.loopCallback && options.loopCallback();
     requestId = window.requestAnimationFrame(loop);
   };
 
