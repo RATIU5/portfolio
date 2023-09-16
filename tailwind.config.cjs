@@ -18,6 +18,9 @@ module.exports = {
 					950: "#12100D",
 				},
 			},
+			fontFamily: {
+				sans: ["Poppins", "sans-serif"],
+			},
 		},
 	},
 	plugins: [],
