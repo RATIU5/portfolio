@@ -31,27 +31,31 @@ import Page from "../layouts/page.astro";
       </svg>
     </div>
   </div>
+  <canvas id="lowerDrip" class="h-[200px] w-full"></canvas>
 </Page>
 
 <script>
 import { createScene, createCanvas } from "../lib/canvas";
 import { renderDrip, createDrips, type DripOptions} from "../lib/drips";
 
-let canvasEl = document.getElementById("upperDrip") as HTMLCanvasElement;
+let canvasUpper = document.getElementById("upperDrip") as HTMLCanvasElement;
+let canvasLower = document.getElementById("lowerDrip") as HTMLCanvasElement;
+
 type State = {
   drips: DripOptions[],
   resizeTimeout?: number,
 }
 
 createScene<State>([
-  createCanvas<State>(canvasEl, {
+  createCanvas<State>(canvasUpper, {
     setup: (canvas) => {
       canvas.width = window.innerWidth;
       canvas.height = 250;
 
       const drips = createDrips({
         dripWidth: 100,
-        containerWidth: canvas.width
+        containerWidth: canvas.width,
+        reverse: false,
       });
 
       return {
@@ -70,7 +74,8 @@ createScene<State>([
       state.resizeTimeout = setTimeout(() => {
         const drips = createDrips({
           dripWidth: 100,
-          containerWidth: canvas.width
+          containerWidth: canvas.width,
+          reverse: false,
         });
         state.drips = drips;
         state.resizeTimeout = 0;
@@ -102,7 +107,74 @@ createScene<State>([
             y: state.drips[i].y,
             height: state.drips[i].height,
             width: state.drips[i].width,
-            invert: state.drips[i].invert
+            invert: state.drips[i].invert,
+          reverse: false,
+        });
+      }
+    }
+  }),
+  createCanvas<State>(canvasLower, {
+    setup: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 200;
+
+      const drips = createDrips({
+        dripWidth: 100,
+        containerWidth: canvas.width,
+        reverse: true,
+      });
+
+      return {
+        drips: drips,
+        resizeTimeout: undefined,
+      }
+    },
+    resize: ({canvas, state}) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 200;
+
+      if (state.resizeTimeout) {
+        clearTimeout(state.resizeTimeout); 
+      }
+
+      state.resizeTimeout = setTimeout(() => {
+        const drips = createDrips({
+          dripWidth: 100,
+          containerWidth: canvas.width,
+          reverse: true,
+        });
+        state.drips = drips;
+        state.resizeTimeout = 0;
+      }, 250);
+    },
+
+    paint: ({ctx, state, canvas}) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const frequency = Math.random() * (0.008 + 0.001) + 0.001;
+      const evenRange = {min: 0, max: 50};
+      const oddRange = {min: 50, max: 100};
+
+      for (let i = 0; i < state.drips.length; i++) {
+        state.drips[i].angle += frequency;
+        if (state.drips[i].angle > 2 * Math.PI) {
+            state.drips[i].angle -= 2 * Math.PI;
+        }
+
+        if (i % 2 === 0) {
+            let evenAmplitude = (evenRange.max - evenRange.min) / 2;
+            state.drips[i].y = evenAmplitude * Math.sin(state.drips[i].angle) + evenAmplitude + evenRange.min;
+        } else { 
+            let oddAmplitude = (oddRange.max - oddRange.min) / 2;
+            state.drips[i].y = oddAmplitude * Math.sin(state.drips[i].angle) + oddAmplitude + oddRange.min;
+        }
+
+        renderDrip(ctx, {
+            x: state.drips[i].x,
+            y: state.drips[i].y,
+            height: state.drips[i].height,
+            width: state.drips[i].width,
+            invert: state.drips[i].invert,
+            reverse: true
         });
       }
     }
