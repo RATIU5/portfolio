@@ -43,25 +43,29 @@ import Page from "../layouts/page.astro";
       </div>
     </div>
     <div class="my-12 flex flex-col md:flex-row justify-center items-center flex-wrap">
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3 shadow-lg border border-solid border-[#30333E]">
         <span class="text-orange-600 mt-4 mb-1 block">01</span>
         <h2 class="text-blue-50 text-2xl mb-4">BACKEND</h2>
         <p class="text-slate-400 mb-4">Robust backend development that powers your platform, seamlessly integrating your brand's vision with user functionality.</p>
         <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT BACKEND</a></div>
       </div>
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3 shadow-lg border border-solid border-[#30333E]">
         <span class="text-orange-600 mt-4 mb-1 block">02</span>
         <h2 class="text-blue-50 text-2xl mb-4">FRONTEND</h2>
         <p class="text-slate-400 mb-4">Captivating frontend development that enchants your audience by fusing your brand style with user-centric designs.</p>
         <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT FRONTEND</a></div>
       </div>
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3 shadow-lg border border-solid border-[#30333E]">
         <span class="text-orange-600 mt-4 mb-1 block">03</span>
         <h2 class="text-blue-50 text-2xl mb-4">DESIGN</h2>
         <p class="text-slate-400 mb-4">Visually striking designs that mesmerize your audience by melding your brand essence with aesthetic appeal and accessibility.</p>
         <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT DESIGN</a></div>
       </div>
     </div>
+  </div>
+  <canvas id="upperDrip2" class="h-[250px] w-full"></canvas>
+  <div class="">
+    
   </div>
 </Page>
 
@@ -71,6 +75,8 @@ import { renderDrip, createDrips, type DripOptions} from "../lib/drips";
 
 let canvasUpper = document.getElementById("upperDrip") as HTMLCanvasElement;
 let canvasLower = document.getElementById("lowerDrip") as HTMLCanvasElement;
+
+let canvasUpper2 = document.getElementById("upperDrip2") as HTMLCanvasElement;
 
 type State = {
   drips: DripOptions[],
@@ -206,6 +212,72 @@ createScene<State>([
             width: state.drips[i].width,
             invert: state.drips[i].invert,
             reverse: true
+        });
+      }
+    }
+  }),
+  createCanvas<State>(canvasUpper2, {
+    setup: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 250;
+
+      const drips = createDrips({
+        dripWidth: 100,
+        containerWidth: canvas.width,
+        reverse: false
+      });
+
+      return {
+        drips: drips,
+        resizeTimeout: undefined,
+      }
+    },
+    resize: ({canvas, state}) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 250;
+
+      if (state.resizeTimeout) {
+        clearTimeout(state.resizeTimeout); 
+      }
+
+      state.resizeTimeout = setTimeout(() => {
+        const drips = createDrips({
+          dripWidth: 100,
+          containerWidth: canvas.width,
+          reverse: false
+        });
+        state.drips = drips;
+        state.resizeTimeout = 0;
+      }, 250);
+    },
+
+    paint: ({ctx, state, canvas}) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const frequency = Math.random() * (0.008 + 0.001) + 0.001;
+      const evenRange = {min: 150, max: 200};
+      const oddRange = {min: 100, max: 150};
+
+      for (let i = 0; i < state.drips.length; i++) {
+        state.drips[i].angle += frequency;
+        if (state.drips[i].angle > 2 * Math.PI) {
+          state.drips[i].angle -= 2 * Math.PI;
+        }
+
+        if (i % 2 === 0) {
+          let evenAmplitude = (evenRange.max - evenRange.min) / 2;
+          state.drips[i].height = evenAmplitude * Math.sin(state.drips[i].angle) + evenAmplitude + evenRange.min;
+        } else { 
+          let oddAmplitude = (oddRange.max - oddRange.min) / 2;
+          state.drips[i].height = oddAmplitude * Math.sin(state.drips[i].angle) + oddAmplitude + oddRange.min;
+        }
+
+        renderDrip(ctx, {
+          x: state.drips[i].x,
+          y: state.drips[i].y,
+          height: state.drips[i].height,
+          width: state.drips[i].width,
+          invert: state.drips[i].invert,
+          reverse: false,
         });
       }
     }
