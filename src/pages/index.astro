@@ -8,7 +8,7 @@ import Page from "../layouts/page.astro";
       <div class="min-w-[350px] max-w-xs sm:max-w-lg md:max-w-md lg:max-w-2xl xl:max-w-3xl 2xl:max-w-6xl md:ml-6 flex flex-col min-w-xs">
         <h4 class="text-[#9BA7C2] text-xl md:text-2xl xl:text-4xl text-center md:text-left my-2 font-light">Your brand + my digital magic?</h4>
         <div class="relative">
-          <h1 class="text-[#EFF7FF] -ml-3 md:ml-0 text-5xl min-w-[23rem] md:text-6xl xl:text-8xl text-center md:text-left font-bold leading-[110%]">Now that's a story worth talking about!</h1>
+          <h1 class="text-[#EFF7FF] -ml-3 md:ml-0 text-5xl min-w-[23rem] md:text-6xl 2xl:text-8xl text-center md:text-left font-bold leading-[110%]">Now that's a story worth talking about!</h1>
           <svg xmlns="http://www.w3.org/2000/svg" width="150" height="25" viewBox="0 0 207 25" fill="none" class="absolute left-2 sm:left-40 md:-left-2 lg:left-44 xl:-left-4 2xl:left-64 md:w-56 md:h-10 xl:w-80 xl:h-14">
             <path d="M22 5C138.42 -2.02743 206.5 6.5 206.5 6.5C206.5 6.5 115.852 1.91566 2 23.5" stroke="#FF5B27" stroke-width="3" stroke-linecap="round"/>
           </svg>
@@ -36,30 +36,30 @@ import Page from "../layouts/page.astro";
   </div>
   <div class="bg-[#24272E] flex flex-col pt-12 justify-center px-6 md:px-0">
     <div class="flex mx-auto flex-col lg:flex-row text-lg lg:text-xl font-light xl:text-2xl">
-      <img src="/img/self.png" alt="self" class="object-cover mb-8 lg:mb-0 md:w-96 md:h-96 xl:h-[32rem] xl:w-[32rem] lg:ml-6 lg:mr-8 rounded-lg mx-auto" />
-      <div class="flex flex-col justify-center mt-8 lg:mt-0 md:w-96 lg:mr-6 lg:ml-8 xl:w-[32rem]">
+      <img src="/img/self.png" alt="self" class="object-cover w-full h-full max-w-sm max-h-sm mb-8 lg:mb-0 md:max-w-none md:max-h-none md:w-96 md:h-96 xl:h-[32rem] xl:w-[32rem] lg:ml-6 lg:mr-8 rounded-lg mx-auto" />
+      <div class="flex flex-col justify-center w-full max-w-sm mt-8 md:max-w-none lg:mt-0 md:w-96 lg:mr-6 lg:ml-8 xl:w-[32rem]">
         <p class="text-slate-400 leading-[160%] mb-3">Hi, I'm John.</p>
         <p class="text-blue-50 leading-[160%]">I conceptualize, craft, and deliver premium web and software products that set your customer experience apart. That’s the power of R5.</p>
       </div>
     </div>
-    <div class="my-12">
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg mb-6">
+    <div class="my-12 flex flex-col md:flex-row justify-center items-center flex-wrap">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
         <span class="text-orange-600 mt-4 mb-1 block">01</span>
         <h2 class="text-blue-50 text-2xl mb-4">BACKEND</h2>
         <p class="text-slate-400 mb-4">Robust backend development that powers your platform, seamlessly integrating your brand's vision with user functionality.</p>
-        <a href="#" class="text-orange-600">ABOUT BACKEND</a>
+        <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT BACKEND</a></div>
       </div>
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg mb-6">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
         <span class="text-orange-600 mt-4 mb-1 block">02</span>
         <h2 class="text-blue-50 text-2xl mb-4">FRONTEND</h2>
         <p class="text-slate-400 mb-4">Captivating frontend development that enchants your audience by fusing your brand style with user-centric designs.</p>
-        <a href="#" class="text-orange-600">ABOUT FRONTEND</a>
+        <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT FRONTEND</a></div>
       </div>
-      <div class="bg-[#2A2D35] p-6 font-light rounded-lg">
+      <div class="bg-[#2A2D35] p-6 font-light rounded-lg max-w-xl min-w-[22rem] m-3">
         <span class="text-orange-600 mt-4 mb-1 block">03</span>
         <h2 class="text-blue-50 text-2xl mb-4">DESIGN</h2>
         <p class="text-slate-400 mb-4">Visually striking designs that mesmerize your audience by melding your brand essence with aesthetic appeal and accessibility.</p>
-        <a href="#" class="text-orange-600">ABOUT DESIGN</a>
+        <div class="flex justify-end"><a href="#" class="text-orange-600">ABOUT DESIGN</a></div>
       </div>
     </div>
   </div>
