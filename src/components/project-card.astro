@@ -4,11 +4,22 @@ const { img, title, description } = Astro.props;
 ---
 
 <div class="group w-[35rem] h-[35rem] mb-8 relative overflow-hidden rounded-lg ">
-  <div class="group-hover:z-10">
-    <h3>{title}</h3>
-    <p>{description}</p>
+  <div class="relative w-full h-full z-30 group-hover:z-0">
+    <img src={img} alt={title} class="absolute w-full h-full object-cover top-0" />
+    <div class="absolute w-full h-full group-hover:backdrop-blur-lg bg-black/0 group-hover:bg-slate-950/50 transition-all ease-in-out duration-75" />
   </div>
-  <img src={img} alt={title} class="absolute w-full h-full object-cover top-0" />
-  <div class="absolute w-full h-full top-0 group-hover:backdrop-blur-lg bg-black/0 group-hover:bg-black/50 transition-all ease-in-out duration-100" />
+  <div class="absolute group-hover:z-10 top-0 h-full flex flex-col justify-end p-6">
+    <div class="flex-grow flex justify-center items-center">
+      <a href="#" class="w-16 h-16 flex justify-center items-center border border-solid border-orange-600 rounded-full hover:-rotate-45 transition-all ease-in-out duration-75">
+        <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="fill-orange-600" d="M29.9712 4.35355C30.1664 4.15829 30.1664 3.84171 29.9712 3.64645L26.7892 0.464466C26.5939 0.269204 26.2773 0.269204 26.0821 0.464466C25.8868 0.659728 25.8868 0.976311 26.0821 1.17157L28.9105 4L26.0821 6.82843C25.8868 7.02369 25.8868 7.34027 26.0821 7.53553C26.2773 7.7308 26.5939 7.7308 26.7892 7.53553L29.9712 4.35355ZM0 4.5H29.6176V3.5H0V4.5Z"/>
+        </svg>
+      </a>
+    </div>
+    <div>
+      <h3 class="text-3xl text-orange-600 font-light mb-2">{title}</h3>
+      <p class="text-[#9BA7C2]">{description}</p>
+    </div>
+     </div>
 </div>
 
