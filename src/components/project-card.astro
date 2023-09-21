@@ -1,0 +1,14 @@
+---
+
+const { img, title, description } = Astro.props;
+---
+
+<div class="group w-[35rem] h-[35rem] mb-8 relative overflow-hidden rounded-lg ">
+  <div class="group-hover:z-10">
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+  <img src={img} alt={title} class="absolute w-full h-full object-cover top-0" />
+  <div class="absolute w-full h-full top-0 group-hover:backdrop-blur-lg bg-black/0 group-hover:bg-black/50 transition-all ease-in-out duration-100" />
+</div>
+

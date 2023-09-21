@@ -1,5 +1,6 @@
 ---
 import Page from "../layouts/page.astro";
+import ProjectCard from "../components/project-card.astro";
 ---
 <Page>
   <div class="flex flex-col">
@@ -70,8 +71,11 @@ import Page from "../layouts/page.astro";
       <a href="#" class="text-orange-600">VIEW ALL</a>
     </div>
     <div class="flex flex-wrap justify-center items-center">
-      <div>
-        <img src="#" alt="project1" />
+      <div class="flex flex-wrap justify-between items-center">
+        <ProjectCard img="/img/brexit.webp" title="Brexit Converter" description="Brexit Converter converts a custom markdown syntax to styleized Canvas LMS content." />
+        <ProjectCard img="/img/gradapp.webp" title="Gradapp" description="Gradapp is a person check-in/out system for the graduation process at Bridgerland Technical College." />
+        <ProjectCard img="/img/grannydesktop.webp" title="Granny Dashboard" description="Granny Dashboard is a minimal dashboard targeted for PHP development in Docker. It comes pre-installed with my custom Granny PHP container." />
+        <ProjectCard img="/img/mcxcstopwatch.webp" title="MCXC Stopwatch" description="MCXC Stopwatch is a custom stopwatched used by coaches for tracking their students distance times." />
       </div>
     </div>
   </div>
