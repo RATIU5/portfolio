@@ -1,6 +1,9 @@
 ---
 import Footer from "../layouts/footer.astro";
 const { title } = Astro.props;
+import Modal from "../components/modal.svelte";
+
+let showModal = true;
 ---
 
 <html lang="en">
@@ -15,7 +18,13 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;1,400&display=swap" rel="stylesheet">    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" async use:client /> -->
 	</head>
 	<body class="bg-[#24272E]">
-	  <header>
+		<Modal showModal={showModal} client:only="svelte">
+      <h2 slot="header" class="text-2xl font-semibold text-slate-200 mb-4">Under Construction 🚧</h2>
+      <div class="rounded-md my-6">
+        <p class="text-slate-300">Welcome! This site is a work-in-progress so not all features and links work. Feel free to check back any time to see updates.</p>
+      </div>
+    </Modal>
+		<header>
       <nav>
 
       </nav>
