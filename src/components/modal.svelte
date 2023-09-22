@@ -4,7 +4,6 @@
 	let dialog; // HTMLDialogElement
 
 	$: if (dialog && showModal) {
-		console.log("dialog");
 		dialog.showModal();
 	}
 </script>
@@ -22,7 +21,7 @@
 		<slot />
 		<!-- svelte-ignore a11y-autofocus -->
 		<button autofocus on:click={() => dialog.close()} class="text-gray-500"
-			>close modal</button
+			>Close</button
 		>
 	</div>
 </dialog>
