@@ -20,6 +20,7 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: ["Poppins", "sans-serif"],
+				serif: ["Linden Hill", "serif"],
 			},
 		},
 	},
