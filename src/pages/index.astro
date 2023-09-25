@@ -87,32 +87,33 @@ import ProjectCard from "../components/project-card.astro";
       <p class="text-[#9BA7C2] max-w-md text-center font-light">My strategy makes certain I produce a website aligned with your business goals.</p>
     </div>
     <div class="px-6">
-      <div class="w-full rounded-lg overflow-hidden mb-6">
-        <img src="/img/notes.png" alt="notebook on table" class="object-cover w-full h-48" />
+      <div class="w-full rounded-lg overflow-hidden mb-6 md:flex max-w-4xl mx-auto md:mb-8">
+        <img src="/img/notes.png" alt="notebook on table" class="object-cover w-full md:w-[50%] h-48 md:h-auto" />
         <div class="bg-[#24272E] p-6">
           <p class="text-orange-600 font-light text-sm mb-3">ARE WE A GOOD FIT?</p>
           <h2 class="text-[#EFF7FF] font-light text-3xl mb-3">INTRODUCTORY MEETING</h2>
           <p class="text-[#9BA7C2] font-light">Prior to diving in, we assess if and in what ways I can assist you. What are your expectations for your upcoming website? What prompts the need for a fresh site? Which objectives are you aiming for, and what challenges can a modern website address for you?</p>
         </div>
       </div>
-      <div class="w-full rounded-lg overflow-hidden mb-6">
-        <img src="/img/blueprint.png" alt="blueprint" class="object-cover w-full h-48" />
+      <div class="w-full rounded-lg overflow-hidden mb-6 md:flex md:flex-row-reverse max-w-4xl mx-auto md:mb-8">
+        <img src="/img/blueprint.png" alt="blueprint" class="object-cover w-full h-48 md:w-[50%] md:h-auto" />
         <div class="bg-[#24272E] p-6">
           <p class="text-orange-600 font-light text-sm mb-3">CREATING THE PATH</p>
           <h2 class="text-[#EFF7FF] font-light text-3xl mb-3">DESIGN & DIRECTION</h2>
           <p class="text-[#9BA7C2] font-light">Together, we devise a method that aligns your goals with the requirements of your audience. With this structure in mind, I develop preliminary wireframes and an interactive model. This gives us a clear insight into the website and the user experience.</p>
         </div>
       </div>
-      <div class="w-full rounded-lg overflow-hidden mb-6">
-        <img src="/img/design.png" alt="website development work" class="object-cover w-full h-48" />
+      <div class="w-full rounded-lg overflow-hidden mb-6 md:flex max-w-4xl mx-auto md:mb-8">
+        <img src="/img/design.png" alt="website development work" class="object-cover w-full h-48 md:w-[50%] md:h-auto" />
         <div class="bg-[#24272E] p-6">
-          <p class="text-orange-600 font-light text-sm mb-3"></p>
+          <p class="text-orange-600 font-light text-sm mb-3">SOME MAGIC</p>
           <h2 class="text-[#EFF7FF] font-light text-3xl mb-3">DEVELOPMENT</h2>
           <p class="text-[#9BA7C2] font-light">The magic comes to life. Guided by the previously etched concept, I produce a top-notch visual design meticulously resonating with your brand's voice. A digital persona that catapults you above competitors, hits the sweet spot with your audience, and affords a premium user interface.</p>
         </div>
       </div>
     </div>
   </div> 
+  <canvas id="lowerDrip2"></canvas>
 </Page>
 
 <script>
@@ -123,6 +124,7 @@ let canvasUpper = document.getElementById("upperDrip") as HTMLCanvasElement;
 let canvasLower = document.getElementById("lowerDrip") as HTMLCanvasElement;
 
 let canvasUpper2 = document.getElementById("upperDrip2") as HTMLCanvasElement;
+let canvasLower2 = document.getElementById("lowerDrip2") as HTMLCanvasElement;
 
 type State = {
   drips: DripOptions[],
@@ -328,6 +330,72 @@ createScene<State>([
       }
     }
   }),
+createCanvas<State>(canvasLower2, {
+    setup: (canvas) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 200;
+
+      const drips = createDrips({
+        dripWidth: 100,
+        containerWidth: canvas.width,
+        reverse: true,
+      });
+
+      return {
+        drips: drips,
+        resizeTimeout: undefined,
+      }
+    },
+    resize: ({canvas, state}) => {
+      canvas.width = window.innerWidth;
+      canvas.height = 200;
+
+      if (state.resizeTimeout) {
+        clearTimeout(state.resizeTimeout); 
+      }
+
+      state.resizeTimeout = setTimeout(() => {
+        const drips = createDrips({
+          dripWidth: 100,
+          containerWidth: canvas.width,
+          reverse: true,
+        });
+        state.drips = drips;
+        state.resizeTimeout = 0;
+      }, 250);
+    },
+
+    paint: ({ctx, state, canvas}) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const frequency = Math.random() * (0.008 + 0.001) + 0.001;
+      const evenRange = {min: 0, max: 50};
+      const oddRange = {min: 50, max: 100};
+
+      for (let i = 0; i < state.drips.length; i++) {
+        state.drips[i].angle += frequency;
+        if (state.drips[i].angle > 2 * Math.PI) {
+            state.drips[i].angle -= 2 * Math.PI;
+        }
+
+        if (i % 2 === 0) {
+            let evenAmplitude = (evenRange.max - evenRange.min) / 2;
+            state.drips[i].y = evenAmplitude * Math.sin(state.drips[i].angle) + evenAmplitude + evenRange.min;
+        } else { 
+            let oddAmplitude = (oddRange.max - oddRange.min) / 2;
+            state.drips[i].y = oddAmplitude * Math.sin(state.drips[i].angle) + oddAmplitude + oddRange.min;
+        }
+
+        renderDrip(ctx, {
+            x: state.drips[i].x,
+            y: state.drips[i].y,
+            height: state.drips[i].height,
+            width: state.drips[i].width,
+            invert: state.drips[i].invert,
+            reverse: true
+        });
+      }
+    }
+  })
 ]);
 </script>
 
