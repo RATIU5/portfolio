@@ -25,32 +25,35 @@ let showModal = true;
         <p class="text-[#9BA7C2]">Welcome! This site is a work-in-progress, so not all features and links work. Feel free to check back any time to see updates.</p>
       </div>
     </Modal>
-		<header class="fixed flex justify-between items-center w-full">
+		<header class="fixed flex justify-around items-center w-full">
 			<Logo />
-      <nav>
+      <nav class="mx-4">
 				<ul class="flex">
-					<li>
+					<li class="mx-4">
 						<a href="/">HOME</a>
 					</li>
-					<li>
+					<li class="mx-4">
 						<a href="/">SERVICES</a>
 					</li>
-					<li>
+					<li class="mx-4">
 						<a href="/">WORK</a>
 					</li>
-					<li>
+					<li class="mx-4">
 						<a href="/">ABOUT</a>
 					</li>
 				</ul>
       </nav>
-    	<a href="#" class="group relative cursor-pointer bg-none text-[#EFF7FF] border border-solid border-orange-600 text-sm pl-3 pr-6 py-2 inline-block mx-auto md:inline rounded-lg">
-      	CONTACT
-      	<span class="absolute top-3.5 -right-3 group-hover:-right-4 group-active:-right-4 transition-all ease-in-out duration-150">
-        	<svg xmlns="http://www.w3.org/2000/svg" width="30" height="8" viewBox="0 0 30 8" fill="none">
-          	<path d="M29.3536 4.35355C29.5488 4.15829 29.5488 3.84171 29.3536 3.64645L26.1716 0.464466C25.9763 0.269204 25.6597 0.269204 25.4645 0.464466C25.2692 0.659728 25.2692 0.976311 25.4645 1.17157L28.2929 4L25.4645 6.82843C25.2692 7.02369 25.2692 7.34027 25.4645 7.53553C25.6597 7.7308 25.9763 7.7308 26.1716 7.53553L29.3536 4.35355ZM0 4.5H29V3.5H0L0 4.5Z" fill="white"/>
-        	</svg>
-      	</span>
-    	</a>
+      <div>
+    		<a href="#" class="group relative bg-none text-[#EFF7FF] border border-solid border-orange-600 text-sm pl-3 pr-6 py-2 mx-auto rounded-lg">
+      		CONTACT
+      		<span class="absolute top-3.5 -right-3 group-hover:-right-4 group-active:-right-4 transition-all ease-in-out duration-150">
+        		<svg xmlns="http://www.w3.org/2000/svg" width="30" height="8" viewBox="0 0 30 8" fill="none">
+          		<path d="M29.3536 4.35355C29.5488 4.15829 29.5488 3.84171 29.3536 3.64645L26.1716 0.464466C25.9763 0.269204 25.6597 0.269204 25.4645 0.464466C25.2692 0.659728 25.2692 0.976311 25.4645 1.17157L28.2929 4L25.4645 6.82843C25.2692 7.02369 25.2692 7.34027 25.4645 7.53553C25.6597 7.7308 25.9763 7.7308 26.1716 7.53553L29.3536 4.35355ZM0 4.5H29V3.5H0L0 4.5Z" fill="white"/>
+        		</svg>
+      		</span>
+    		</a>
+      </div>
+
 	  </header>
 	  <main class="bg-[#1D1F25] overflow-hidden">
       <slot />
