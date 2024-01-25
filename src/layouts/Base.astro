@@ -7,7 +7,7 @@ import Footer from "../components/Footer.astro";
 
 const {
     title,
-    description = "Discover the portfolio of a skilled software engineer, featuring innovative projects, technical articles, and insights into modern software development. A hub for expertise, creativity, and technology trends.",
+    description = "The portfolio of RATIU5, featuring innovative projects, technical articles, and insights into modern software development. A hub for expertise, creativity, and technology trends.",
 } = Astro.props;
 ---
 
@@ -25,10 +25,12 @@ const {
         <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <title>{title}</title>
     </head>
-    <body class="max-w-2xl mx-auto">
-        <div class="h-screen">
+    <body class="max-w-2xl min-w-80 mx-auto pb-20 md:pb-0">
+        <div class="h-auto min-h-screen flex flex-col">
             <Header />
-            <slot />
+            <div class="w-full flex-grow flex">
+                <slot />
+            </div>
         </div>
         <Footer />
     </body>

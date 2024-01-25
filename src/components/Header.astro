@@ -1,16 +1,23 @@
 ---
 import A from "../components/A.astro";
+import Collapsible from "./Collapsible.astro";
+import {cn} from "../lib/utils";
+
+const { class: className } = Astro.props;
 ---
 
-<header class="pt-20">
-    <nav class="flex justify-center items-center gap-12">
-        <A href="/articles">ARTICLES</A>
-        <A href="/portfolio">PORTFOLIO</A>
-        <A href="/">
-            <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
-            <span class="sr-only">HOME</span>
-        </A>
-        <A href="/contact">CONTACT</A>
-        <A href="/about">ABOUT</A>
-    </nav>
+<header class={cn("", className)}>
+    <Collapsible>
+        <nav class="bg-neutral-100 w-full h-full flex flex-col justify-center items-center gap-12 md:flex-row">
+            <A href="/articles" class="order-2 md:order-1">ARTICLES</A>
+            <A href="/portfolio" class="order-2 md:order-1">PORTFOLIO</A>
+            <A href="/" class=" order-1 md:order-1">
+                <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
+                <span class="sr-only">HOME</span>
+            </A>
+            <A href="/contact" class="order-2 md:order-1">CONTACT</A>
+            <A href="/about" class="order-2 md:order-1">ABOUT</A>
+        </nav>
+    </Collapsible>
 </header>
+
