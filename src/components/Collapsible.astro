@@ -3,12 +3,17 @@ import { Icon } from "astro-icon/components";
 ---
 
 <div class="relative w-full h-0 md:h-20 bg-neutral-100">
-    <input type="checkbox" name="checkbox" id="checkbox" class="peer" hidden />
-    <label for="checkbox" class="fixed bottom-0 right-0 z-50 block w-20 h-20 p-2 m-2 border border-solid rounded-full shadow-lg select-none bg-neutral-100 text-neutral-800 transition ease-in-out peer-checked:rotate-90 border-neutral-200 peer-checked:shadow-none md:hidden">
-        <Icon name="menu" class="w-16 h-16 text-neutral-500" />
-        <p class="sr-only">MENU</p>
-    </label>
-    <div class="fixed top-0 left-0 w-screen h-screen opacity-0 pointer-events-none -z-10 scale-110 peer-checked:pointer-events-auto peer-checked:opacity-100 peer-checked:scale-100 peer-checked:z-10 transition-all ease-in-out md:opacity-100 md:scale-100 md:relative md:h-auto md:w-full md:flex-row md:mt-20 md:pointer-events-auto md:z-10">
-        <slot />
-    </div>
+  <input type="checkbox" name="checkbox" id="checkbox" class="peer" hidden />
+  <label
+    for="checkbox"
+    class="fixed bottom-0 right-0 z-50 block w-20 h-20 p-2 m-2 border border-solid rounded-full shadow-lg select-none bg-neutral-100 text-neutral-800 transition ease-in-out peer-checked:rotate-90 border-neutral-200 peer-checked:shadow-none md:hidden"
+  >
+    <Icon name="menu" class="w-16 h-16 text-neutral-500" />
+    <p class="sr-only">MENU</p>
+  </label>
+  <div
+    class="fixed top-0 left-0 w-screen h-screen opacity-0 pointer-events-none -z-10 scale-110 peer-checked:pointer-events-auto peer-checked:opacity-100 peer-checked:scale-100 peer-checked:z-10 transition-all ease-in-out md:opacity-100 md:scale-100 md:relative md:h-auto md:w-full md:flex-row md:mt-20 md:pointer-events-auto md:z-10"
+  >
+    <slot />
+  </div>
 </div>
