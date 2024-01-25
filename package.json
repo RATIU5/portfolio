@@ -11,6 +11,8 @@
 	},
 	"dependencies": {
 		"@astrojs/tailwind": "^5.1.0",
+		"@fontsource/lato": "^5.0.18",
+		"@fontsource/literata": "^5.0.18",
 		"astro": "^4.2.4",
 		"tailwindcss": "^3.4.1"
 	}
