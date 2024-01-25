@@ -9,6 +9,10 @@ export default {
 				sans: ["Lato", ...defaultTheme.fontFamily.sans],
 				serif: ["Literata", ...defaultTheme.fontFamily.serif],
 			  },
+			  screens: {
+				'xs': '480px',
+				// => @media (min-width: 992px) { ... }
+			  },
 		},
 	},
 	plugins: [],
