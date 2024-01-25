@@ -25,9 +25,11 @@ const {
         <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <title>{title}</title>
     </head>
-    <body>
-        <Header />
-        <slot />
+    <body class="max-w-2xl mx-auto">
+        <div class="h-screen">
+            <Header />
+            <slot />
+        </div>
         <Footer />
     </body>
 </html>

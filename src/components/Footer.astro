@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+import A from "./A.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+        <hr />
+        <div class="flex flex-col mb-4">
+            <div class="flex justify-between">
+                <div>
+                    <ul>
+                        <li><A href="/" class="block my-2">HOME</A></li>
+                        <li><A href="/articles" class="block my-2">ARTICLES</A></li>
+                        <li><A href="/articles" class="block my-2">PORTFOLIO</A></li>
+                        <li><A href="/articles" class="block my-2">CONTACT</A></li>
+                        <li><A href="/about" class="block my-2">ABOUT</A></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul>
+                        <li>
+                            <A href="/" class="flex items-center my-2">
+                                <Icon name="github" class="w-8 h-8 mr-2" />
+                                <p>GITHUB</p>
+                            </A>
+                        </li>
+                        <li>
+                            <A href="/articles" class="flex items-center my-2">
+                                <Icon name="x" class="w-8 h-8 mr-2" />
+                                <p>TWITTER</p>
+                            </A>
+                        </li>
+                        <li>
+                            <A href="/articles" class="flex items-center my-2">
+                                <Icon name="linkedin"  class="w-8 h-8 mr-2" />
+                                <p>LINKEDIN</p>
+                            </A>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="w-full text-center text-sm text-neutral-400">&copy; RATIU5.DEV {currentYear}</p>
+        </div>
+</footer>
