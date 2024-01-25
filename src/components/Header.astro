@@ -1,7 +1,7 @@
 ---
 import A from "../components/A.astro";
 import Collapsible from "./Collapsible.astro";
-import {cn} from "../lib/utils";
+import { cn } from "../lib/utils";
 
 const { class: className } = Astro.props;
 const pathname = new URL(Astro.request.url).pathname;
@@ -9,29 +9,46 @@ const currentPath = pathname.slice(1); // remove the first "/"
 ---
 
 <header class={className}>
-    <Collapsible>
-        <nav class="flex flex-col items-center justify-center w-full h-full bg-neutral-100 md:flex-row">
-            <div class="flex flex-col items-center order-2 md:items-start md:justify-around w-60 md:order-1 md:flex-row">
-                <A href="/blog" class={cn("mb-8 md:m-0", {
-                    "text-neutral-800 underline": currentPath === "blog",
-                })}>BLOG</A>
-                <A href="/portfolio" class={cn("mb-8 md:m-0", {
-                    "text-neutral-800 underline": currentPath === "portfolio",
-                })}>PORTFOLIO</A>
-            </div>
-            <A href="/" class="order-1 mb-8 md:m-0">
-                <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
-                <span class="sr-only">HOME</span>
-            </A>
-            <div class="flex flex-col items-center order-2 md:items-start md:justify-around w-60 md:order-1 md:flex-row">
-                <A href="/contact" class={cn("mb-8 md:m-0", {
-                    "text-neutral-800 underline": currentPath === "contact",
-                })}>CONTACT</A>
-                <A href="/about" class={cn({
-                    "text-neutral-800 underline": currentPath === "about",
-                })}>ABOUT</A>
-            </div>
-        </nav>
-    </Collapsible>
+  <Collapsible>
+    <nav
+      class="flex flex-col items-center justify-center w-full h-full bg-neutral-100 md:flex-row"
+    >
+      <div
+        class="flex flex-col items-center order-2 md:items-start md:justify-around w-60 md:order-1 md:flex-row"
+      >
+        <A
+          href="/blog"
+          class={cn("mb-8 md:m-0", {
+            "text-neutral-800 underline": currentPath === "blog",
+          })}>BLOG</A
+        >
+        <A
+          href="/portfolio"
+          class={cn("mb-8 md:m-0", {
+            "text-neutral-800 underline": currentPath === "portfolio",
+          })}>PORTFOLIO</A
+        >
+      </div>
+      <A href="/" class="order-1 mb-8 md:m-0">
+        <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
+        <span class="sr-only">HOME</span>
+      </A>
+      <div
+        class="flex flex-col items-center order-2 md:items-start md:justify-around w-60 md:order-1 md:flex-row"
+      >
+        <A
+          href="/contact"
+          class={cn("mb-8 md:m-0", {
+            "text-neutral-800 underline": currentPath === "contact",
+          })}>CONTACT</A
+        >
+        <A
+          href="/about"
+          class={cn({
+            "text-neutral-800 underline": currentPath === "about",
+          })}>ABOUT</A
+        >
+      </div>
+    </nav>
+  </Collapsible>
 </header>
-
