@@ -1,16 +1,24 @@
 ---
-import {cn} from "../lib/utils";
+import { cn } from "../lib/utils";
 
 interface Props {
-    href: string;
-    target?: string;
-    rel?: string;
-    class?: string;
-} 
+  href: string;
+  target?: string;
+  rel?: string;
+  class?: string;
+}
 
-const {href, target, class: className, rel} = Astro.props;
+const { href, target, class: className, rel } = Astro.props;
 ---
 
-<a href={href} target={target} rel={rel} class={cn("font-serif font-normal text-neutral-600 text-base leading-none hover:text-neutral-800 hover:underline underline-offset-4 active:text-neutral-800 active:underline", className ?? "")}>
-    <slot />
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  class={cn(
+    "font-serif font-normal text-neutral-600 text-base leading-none hover:text-neutral-800 hover:underline underline-offset-4 active:text-neutral-800 active:underline",
+    className ?? ""
+  )}
+>
+  <slot />
 </a>
