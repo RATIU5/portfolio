@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,7 +8,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ["Lato", ...defaultTheme.fontFamily.sans],
-				serif: ["Literata", ...defaultTheme.fontFamily.serif],
+				serif: ["Literata Variable", ...defaultTheme.fontFamily.serif],
 			  },
 			  screens: {
 				'xs': '480px',
@@ -15,5 +16,14 @@ export default {
 			  },
 		},
 	},
-	plugins: [],
+	plugins: [
+		plugin(({ addUtilities }) => {
+			const newUtilities = {
+				".opsz": {
+					"font-variation-settings": '"opsz" 72',
+				},
+			};
+			addUtilities(newUtilities);
+		}),
+	],
 }
