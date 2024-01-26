@@ -11,6 +11,6 @@ interface Props {
 const {href, target, class: className, rel} = Astro.props;
 ---
 
-<a href={href} target={target} rel={rel} class={cn("font-serif font-normal text-neutral-500 text-base leading-none hover:text-neutral-700 hover:underline underline-offset-4 active:text-neutral-700 active:underline active:underline-offset-4", className ?? "")}>
+<a href={href} target={target} rel={rel} class={cn("font-serif font-normal text-neutral-600 text-base leading-none hover:text-neutral-800 hover:underline underline-offset-4 active:text-neutral-800 active:underline", className ?? "")}>
     <slot />
 </a>

@@ -4,22 +4,32 @@ import Collapsible from "./Collapsible.astro";
 import {cn} from "../lib/utils";
 
 const { class: className } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1); // remove the first "/"
 ---
 
 <header class={className}>
     <Collapsible>
         <nav class="bg-neutral-100 w-full h-full flex flex-col justify-center items-center md:flex-row">
             <div class="flex flex-col items-center md:items-start md:justify-around order-2 w-60 md:order-1 md:flex-row">
-                <A href="/articles" class="mb-8 md:m-0">BLOG</A>
-                <A href="/portfolio" class="mb-8 md:m-0">PORTFOLIO</A>
+                <A href="/blog" class={cn("mb-8 md:m-0", {
+                    "text-neutral-800 underline": currentPath === "blog",
+                })}>BLOG</A>
+                <A href="/portfolio" class={cn("mb-8 md:m-0", {
+                    "text-neutral-800 underline": currentPath === "portfolio",
+                })}>PORTFOLIO</A>
             </div>
             <A href="/" class="mb-8 order-1 md:m-0">
                 <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
                 <span class="sr-only">HOME</span>
             </A>
             <div class="flex flex-col items-center md:items-start md:justify-around order-2 w-60 md:order-1 md:flex-row">
-                <A href="/contact" class="mb-8 md:m-0">CONTACT</A>
-                <A href="/about">ABOUT</A>
+                <A href="/contact" class={cn("mb-8 md:m-0", {
+                    "text-neutral-800 underline": currentPath === "contact",
+                })}>CONTACT</A>
+                <A href="/about" class={cn({
+                    "text-neutral-800 underline": currentPath === "about",
+                })}>ABOUT</A>
             </div>
         </nav>
     </Collapsible>
