@@ -3,72 +3,72 @@ import Base from "../layouts/Base.astro";
 ---
 
 <Base title="RATIU5 - Contact">
-    <main class="flex flex-col w-full gap-8 my-4">
-        <h1 class="font-serif text-4xl ospz">CONTACT ME</h1>
-        <form class="flex flex-col gap-4" id="contact-form">
-            <div class="flex flex-col gap-4 md:flex-row md:w-full">
-                <div class="flex flex-col w-full">
-                    <label class="font-serif" for="name">NAME</label>
-                    <input
-                        class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        placeholder="John Doe"
-                    />
-                </div>
-                <div class="flex flex-col w-full">
-                    <label class="font-serif" for="email">EMAIL</label>
-                    <input
-                        class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        placeholder="john.doe@email.com"
-                    />
-                </div>
-            </div>
-            <div class="flex flex-col">
-                <label class="font-serif" for="message">MESSAGE</label>
-                <textarea
-                    class="w-full p-2 border border-solid outline-none h-60 min-h-10 max-h-96 bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
-                    id="message"
-                    name="message"
-                    required
-                    placeholder="I wanted to contact you about your car's extended warrenty."
-                ></textarea>
-            </div>
-            <button
-                class="block p-2 font-serif text-lg border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
-                type="submit">SEND</button
-            >
-        </form>
-    </main>
+  <main class="flex flex-col w-full gap-8 my-4">
+    <h1 class="font-serif text-4xl ospz">CONTACT ME</h1>
+    <form class="flex flex-col gap-4" id="contact-form">
+      <div class="flex flex-col gap-4 md:flex-row md:w-full">
+        <div class="flex flex-col w-full">
+          <label class="font-serif" for="name">NAME</label>
+          <input
+            class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+            id="name"
+            name="name"
+            type="text"
+            required
+            placeholder="John Doe"
+          />
+        </div>
+        <div class="flex flex-col w-full">
+          <label class="font-serif" for="email">EMAIL</label>
+          <input
+            class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="john.doe@email.com"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="font-serif" for="message">MESSAGE</label>
+        <textarea
+          class="w-full p-2 border border-solid outline-none h-60 min-h-10 max-h-96 bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+          id="message"
+          name="message"
+          required
+          placeholder="I wanted to contact you about your car's extended warrenty."
+        ></textarea>
+      </div>
+      <button
+        class="block p-2 font-serif text-lg border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+        type="submit">SEND</button
+      >
+    </form>
+  </main>
 </Base>
 
 <script
-    type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
 ></script>
 <script type="text/javascript">
-    (function () {
-        emailjs.init("B7LeZ44WlAlkqlH4x");
-    })();
+  (function () {
+    emailjs.init("B7LeZ44WlAlkqlH4x");
+  })();
 
-    document.querySelector("#contact-form")?.addEventListener("submit", (e) => {
-        e.preventDefault();
-        emailjs
-            .sendForm("service_cngkhwb", "template_oieory5", "#contact-form")
-            .then(
-                function (response) {
-                    alert("Your message was sent!");
-                },
-                function (error) {
-                    alert("Your message failed to send!");
-                    console.log("FAILED...", error);
-                },
-            );
-    });
+  document.querySelector("#contact-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm("service_cngkhwb", "template_oieory5", "#contact-form")
+      .then(
+        function (response) {
+          alert("Your message was sent!");
+        },
+        function (error) {
+          alert("Your message failed to send!");
+          console.log("FAILED...", error);
+        }
+      );
+  });
 </script>
