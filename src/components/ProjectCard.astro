@@ -4,32 +4,32 @@ import A from "./A.astro";
 import { Image } from "astro:assets";
 
 interface Props {
-    img: string;
-    title: string;
-    category: string;
-    description: string;
-    link: string;
+  img: string;
+  title: string;
+  category: string;
+  description: string;
+  link: string;
 }
 const { img, category, title, description, link } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/*.{jpeg,jpg,png,gif,webp}",
+  "/src/assets/*.{jpeg,jpg,png,gif,webp}"
 );
 if (!images[img])
-    throw new Error(
-        `"${img}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,webp}"`,
-    );
+  throw new Error(
+    `"${img}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,webp}"`
+  );
 ---
 
 <div class="max-w-sm md:max-w-none md:flex md:gap-8">
-    <Image
-        class="object-cover rounded-lg w-96 h-72 md:w-48 md:h-36 md:min-w-48"
-        src={images[img]()}
-        alt={title}
-        quality="low"
-    />
-    <div class="flex flex-col gap-2 mt-4 md:flex-col">
-        <span class="text-xs uppercase text-neutral-500">{category}</span>
-        <A href={link} class="font-sans text-2xl">{title}</A>
-        <p class="font-serif">{description}</p>
-    </div>
+  <Image
+    class="object-cover rounded-lg w-96 h-72 md:w-48 md:h-36 md:min-w-48"
+    src={images[img]()}
+    alt={title}
+    quality="low"
+  />
+  <div class="flex flex-col gap-2 mt-4 md:flex-col">
+    <span class="text-xs uppercase text-neutral-500">{category}</span>
+    <A href={link} class="font-sans text-2xl">{title}</A>
+    <p class="font-serif">{description}</p>
+  </div>
 </div>
