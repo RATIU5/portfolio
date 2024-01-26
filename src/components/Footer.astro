@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 import A from "./A.astro";
 
 const currentYear = new Date().getFullYear();
@@ -8,52 +8,68 @@ const { class: className } = Astro.props;
 ---
 
 <footer class={className}>
-        <hr class="border-neutral-800" />
-        <div class="flex flex-col my-4">
-            <div class="flex justify-between">
-                <div>
-                    <ul>
-                        <li>
-                            <A href="/" class="block my-4">HOME</A>
-                        </li>
-                        <li>
-                            <A href="/blog" class="block my-4">BLOG</A>
-                        </li>
-                        <li>
-                            <A href="/portfolio" class="block my-4">PORTFOLIO</A>
-                        </li>
-                        <li>
-                            <A href="/contact" class="block my-4">CONTACT</A>
-                        </li>
-                        <li>
-                            <A href="/about" class="block my-4">ABOUT</A>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <ul>
-                        <li>
-                            <A href="https://github.com/RATIU5" class="flex items-center my-2">
-                                <Icon name="github" class="w-8 h-8 mr-2" />
-                                <p>GITHUB</p>
-                            </A>
-                        </li>
-                        <li>
-                            <A href="https://twitter.com/RATIU51" class="flex items-center my-2">
-                                <Icon name="x" class="w-8 h-8 mr-2" />
-                                <p>TWITTER</p>
-                            </A>
-                        </li>
-                        <li>
-                            <A href="https://www.linkedin.com/in/john-memmott-1a866318b/" class="flex items-center my-2">
-                                <Icon name="linkedin"  class="w-8 h-8 mr-2" />
-                                <p>LINKEDIN</p>
-                            </A>
-                        </li>
-                    </ul>
-                </div>
+    <hr class="border-neutral-800" />
+    <div class="flex flex-col my-4">
+        <div class="flex justify-between">
+            <div>
+                <ul>
+                    <li>
+                        <A href="/" class="block my-4">HOME</A>
+                    </li>
+                    <li>
+                        <A href="/blog" class="block my-4">BLOG</A>
+                    </li>
+                    <li>
+                        <A href="/portfolio" class="block my-4">PORTFOLIO</A>
+                    </li>
+                    <li>
+                        <A href="/contact" class="block my-4">CONTACT</A>
+                    </li>
+                    <li>
+                        <A href="/about" class="block my-4">ABOUT</A>
+                    </li>
+                </ul>
             </div>
-            <p class="w-full text-sm text-center text-neutral-400">&copy; RATIU5.DEV {currentYear}</p>
+            <div class="flex items-center h-full">
+                <A href="/" class="order-1 mb-8 md:m-0">
+                    <img src="/logo.svg" alt="Logo" class="w-20 h-20" />
+                    <span class="sr-only">HOME</span>
+                </A>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <A
+                            href="https://github.com/RATIU5"
+                            class="flex items-center my-2"
+                        >
+                            <Icon name="github" class="w-8 h-8 mr-2" />
+                            <p>GITHUB</p>
+                        </A>
+                    </li>
+                    <li>
+                        <A
+                            href="https://twitter.com/RATIU51"
+                            class="flex items-center my-2"
+                        >
+                            <Icon name="x" class="w-8 h-8 mr-2" />
+                            <p>TWITTER</p>
+                        </A>
+                    </li>
+                    <li>
+                        <A
+                            href="https://www.linkedin.com/in/john-memmott-1a866318b/"
+                            class="flex items-center my-2"
+                        >
+                            <Icon name="linkedin" class="w-8 h-8 mr-2" />
+                            <p>LINKEDIN</p>
+                        </A>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <p class="w-full text-sm text-center text-neutral-400">
+            &copy; RATIU5.DEV {currentYear}
+        </p>
+    </div>
 </footer>
