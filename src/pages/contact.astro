@@ -1,7 +1,25 @@
 ---
-import Base from "../layouts/Base.astro"
+import Base from "../layouts/Base.astro";
 ---
 
 <Base title="RATIU5 - Portfolio">
-    Contact
+    <main class="flex flex-col w-full gap-8">
+        <h1 class="font-serif text-4xl">CONTACT ME</h1>
+        <form class="flex flex-col gap-4">
+            <div>
+                <div class="flex flex-col">
+                    <label class="font-serif" for="name">NAME</label>
+                    <input id="name" name="name" type="text" placeholder="John Doe">
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-serif" for="email">EMAIL</label>
+                    <input id="name" name="email" type="email" placeholder="john.doe@email.com">
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-serif" for="message">MESSAGE</label>
+                <textarea id="message" name="message" placeholder="I wanted to contact you about..."></textarea>
+            </div>
+        </form>
+    </main>
 </Base>

@@ -1,5 +1,5 @@
 ---
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata } from "astro";
 import A from "./A.astro";
 import { Image } from "astro:assets";
 
@@ -11,18 +11,23 @@ interface Props {
     link: string;
 }
 const { img, category, title, description, link } = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif,webp}');
-if (!images[img]) throw new Error(`"${img}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,webp}"`);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{jpeg,jpg,png,gif,webp}",
+);
+if (!images[img])
+    throw new Error(
+        `"${img}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,webp}"`,
+    );
 ---
 
 <div class="max-w-sm md:max-w-none md:flex md:gap-8">
     <Image
-        class="md:max-w-48 object-cover rounded-lg"
+        class="object-cover rounded-lg md:max-w-48"
         src={images[img]()}
         alt={title}
         quality="low"
     />
-    <div class="md:flex md:flex-col gap-2">
+    <div class="gap-2 md:flex md:flex-col">
         <span class="text-xs uppercase text-neutral-500">{category}</span>
         <A href={link} class="font-sans text-3xl">{title}</A>
         <p class="font-serif">{description}</p>
