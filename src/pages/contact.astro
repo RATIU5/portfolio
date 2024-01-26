@@ -6,20 +6,44 @@ import Base from "../layouts/Base.astro";
     <main class="flex flex-col w-full gap-8">
         <h1 class="font-serif text-4xl">CONTACT ME</h1>
         <form class="flex flex-col gap-4">
-            <div>
-                <div class="flex flex-col">
+            <div class="flex flex-col gap-4 md:flex-row md:w-full">
+                <div class="flex flex-col w-full">
                     <label class="font-serif" for="name">NAME</label>
-                    <input id="name" name="name" type="text" placeholder="John Doe">
+                    <input
+                        class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                    />
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col w-full">
                     <label class="font-serif" for="email">EMAIL</label>
-                    <input id="name" name="email" type="email" placeholder="john.doe@email.com">
+                    <input
+                        class="w-full h-12 p-2 border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="john.doe@email.com"
+                    />
                 </div>
             </div>
             <div class="flex flex-col">
                 <label class="font-serif" for="message">MESSAGE</label>
-                <textarea id="message" name="message" placeholder="I wanted to contact you about..."></textarea>
+                <textarea
+                    class="w-full p-2 border border-solid outline-none h-60 min-h-10 max-h-96 bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+                    id="message"
+                    name="message"
+                    required
+                    placeholder="I wanted to contact you about your car's extended warrenty."
+                ></textarea>
             </div>
+            <button
+                class="block p-2 font-serif text-lg border border-solid outline-none bg-neutral-100 border-neutral-800 focus:outline-neutral-800 focus:outline-1"
+                type="submit">SEND</button
+            >
         </form>
     </main>
 </Base>
