@@ -4,13 +4,22 @@ import ArticleCard from "../components/ArticleCard.astro";
 ---
 
 <Base title="RATIU5 - Blog">
-    <main>
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
+    <main class="my-4">
+        <ArticleCard
+            category="code"
+            title="Implementing Signals from Scratch"
+            description="Recently, the JavaScript community has been buzzing about signals. Their rise in popularity can be traced back to Solid.js, which drew inspiration from Knockout.js' Observables to craft their version of signals"
+            date="Sep 28, 2023"
+            time={8}
+            url="#"
+        />
+        <ArticleCard
+            category="software"
+            title="Beginners should use a preconfigured Neovim distribution"
+            description="I believe that beginners to Neovim should use a preconfigured distribution. I'm talking about distributions such as LunarVim, NvChad, AstroVim, or LazyVim, among others."
+            date="Aug 23, 2023"
+            time={3}
+            url="#"
+        />
     </main>
 </Base>
