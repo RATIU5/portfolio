@@ -1,0 +1,33 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+import Prose from "../components/Prose.astro";
+import Base from "./Base.astro";
+
+type Props = MarkdownLayoutProps<{
+    title: string;
+    category: string;
+    date: string;
+    time: number;
+    description: string;
+}>;
+
+const { frontmatter } = Astro.props;
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+    <div class="mb-12">
+        <div class="flex flex-col gap-8 mb-12">
+            <span class="text-xs uppercase text-neutral-500"
+                >{frontmatter.category}</span
+            >
+            <h1 class="text-5xl leading-tight">{frontmatter.title}</h1>
+            <div class="flex justify-between text-xs text-neutral-500">
+                <span>{frontmatter.date}</span>
+                <span>{frontmatter.time} min</span>
+            </div>
+        </div>
+        <Prose>
+            <slot />
+        </Prose>
+    </div>
+</Base>
