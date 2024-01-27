@@ -13,7 +13,6 @@
 		"@astrojs/tailwind": "^5.1.0",
 		"@fontsource-variable/literata": "^5.0.19",
 		"@fontsource/lato": "^5.0.18",
-		"@fontsource/literata": "^5.0.18",
 		"astro": "^4.2.4",
 		"astro-icon": "^1.0.2",
 		"clsx": "^2.1.0",
