@@ -1,5 +1,5 @@
 import { defineConfig, passthroughImageService } from "astro/config";
-import { defineConfig, passthroughImageService } from "astro/config";
+import { astroImageTools } from "astro-imagetools";
 import tailwind from "@astrojs/tailwind";
 
 import icon from "astro-icon";
